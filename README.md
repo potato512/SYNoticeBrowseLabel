@@ -32,3 +32,13 @@ noticeLabel.delayTime = 2.0;
 [noticeLabel textAnimation:6.0];
 ~~~
 
+
+#### 变更记录
+* 20170524
+  * 添加延迟动画属性
+~~~ javascript
+/// 延迟动画时间（默认0.0）
+@property (nonatomic, assign) NSTimeInterval delayTime;
+~~~
+  * 修改适配任意长度的文本显示
+
