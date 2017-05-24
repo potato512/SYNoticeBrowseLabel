@@ -88,13 +88,13 @@
     noticeLabel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
     
     noticeLabel.textColor = [UIColor orangeColor];
-    noticeLabel.textFont = [UIFont systemFontOfSize:20.0];
+    noticeLabel.textFont = [UIFont boldSystemFontOfSize:15.0];
     noticeLabel.text = @"自定义跑马灯功能类标签。";
     noticeLabel.images = @[[UIImage imageNamed:@"header"]];
     noticeLabel.textClick = ^(){
         [[[UIAlertView alloc] initWithTitle:nil message:@"点击时，暂停动画；点击释放时，恢复动画。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil] show];
     };
-    [noticeLabel textAnimation:8.0];
+    [noticeLabel textAnimation:10.0];
     
     
     SYNoticeBrowseLabel *noticeLabel2 = [[SYNoticeBrowseLabel alloc] initWithFrame:CGRectMake(10.0, 140.0, (self.view.frame.size.width - 10.0 * 2), 30.0)];
@@ -110,6 +110,15 @@
         [[[UIAlertView alloc] initWithTitle:nil message:@"点击时，动画不受影响。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil] show];
     };
     [noticeLabel2 textAnimation:2.0];
+    
+    
+    SYNoticeBrowseLabel *noticeLabel3 = [[SYNoticeBrowseLabel alloc] initWithFrame:CGRectMake(10.0, 200.0, (self.view.frame.size.width - 10.0 * 2), 30.0)];
+    [self.view addSubview:noticeLabel3];
+    noticeLabel3.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.6];
+    noticeLabel3.text = @"106岁老人一年喝200斤包谷酒，唱山歌15分钟停不下来。";
+    noticeLabel3.images = @[[UIImage imageNamed:@"face01"]];
+    noticeLabel3.delayTime = 3.0;
+    [noticeLabel3 textAnimation:5.0];
 }
 
 

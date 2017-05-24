@@ -58,8 +58,8 @@ static CGFloat const originXY = 3.0;
     }
     
     self.bgView.frame = CGRectMake(self.originLabel, 0.0, (self.frame.size.width - self.originLabel), self.frame.size.height);
-    self.label01.frame = CGRectMake(0.0, 0.0, self.bgView.frame.size.width, self.bgView.frame.size.height);
-    self.label02.frame = CGRectMake(self.bgView.frame.size.width, 0.0, self.bgView.frame.size.width, self.bgView.frame.size.height);
+    self.label01.frame = CGRectMake(0.0, 0.0, self.widthText, self.bgView.frame.size.height);
+    self.label02.frame = CGRectMake(self.widthText, 0.0, self.widthText, self.bgView.frame.size.height);
 }
 
 #pragma mark - touch 
@@ -86,7 +86,7 @@ static CGFloat const originXY = 3.0;
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+
 }
 
 #pragma mark - getter
@@ -109,6 +109,7 @@ static CGFloat const originXY = 3.0;
         _label01 = [[UILabel alloc] init];
         _label01.textColor = _textColor;
         _label01.font = _textFont;
+        _label01.backgroundColor = [UIColor clearColor];
         
         [self.bgView addSubview:_label01];
     }
@@ -122,6 +123,7 @@ static CGFloat const originXY = 3.0;
         _label02 = [[UILabel alloc] init];
         _label02.textColor = _textColor;
         _label02.font = _textFont;
+        _label02.backgroundColor = [UIColor clearColor];
         
         [self.bgView addSubview:_label02];
     }
@@ -198,24 +200,39 @@ static CGFloat const originXY = 3.0;
 
 #pragma mark - methord
 
+- (CGFloat)widthText
+{
+    CGFloat width = self.bgView.frame.size.width;
+    CGSize size = [self.label01.text sizeWithAttributes:@{NSFontAttributeName: self.label01.font}];
+    width = (width > size.width ? width : (size.width + 10.0));
+    return width;
+}
+
 - (void)textAnimation:(NSTimeInterval)duration
 {
     _textDuration = (0.0 >= duration ? 8.0 : duration);
     
-    [UIView beginAnimations:@"textAnimation" context:NULL];
-    [UIView setAnimationDuration:_textDuration];
-    [UIView setAnimationRepeatCount:9999];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    
-    CGRect frame01 = self.label01.frame;
-    frame01.origin.x = -frame01.size.width;
-    self.label01.frame = frame01;
-    
-    CGRect frame02 = self.label02.frame;
-    frame02.origin.x = 0.0;
-    self.label02.frame = frame02;
-    
-    [UIView commitAnimations];
+    [UIView animateWithDuration:_textDuration delay:_delayTime options:UIViewAnimationOptionCurveLinear animations:^{
+        // 位移
+        CGRect frame01 = self.label01.frame;
+        frame01.origin.x = -frame01.size.width;
+        self.label01.frame = frame01;
+        
+        CGRect frame02 = self.label02.frame;
+        frame02.origin.x = 0.0;
+        self.label02.frame = frame02;
+    } completion:^(BOOL finished) {
+        // 恢复原样
+        CGRect frame01 = self.label01.frame;
+        frame01.origin.x = 0.0;
+        self.label01.frame = frame01;
+        
+        CGRect frame02 = self.label02.frame;
+        frame02.origin.x = self.widthText;
+        self.label02.frame = frame02;
+        // 重复执行
+        [self textAnimation:_textDuration];
+    }];
 }
 
 - (void)textAnimationStart

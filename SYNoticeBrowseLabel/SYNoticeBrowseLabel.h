@@ -30,5 +30,7 @@
 @property (nonatomic, assign) BOOL textAnimationPauseWhileClick;
 /// 开始动画（默认8.0）
 - (void)textAnimation:(NSTimeInterval)duration;
+/// 延迟动画时间（默认0.0）
+@property (nonatomic, assign) NSTimeInterval delayTime;
 
 @end
