@@ -21,6 +21,8 @@ static CGFloat const originXY = 3.0;
 
 /// 动画时间（默认8.0）
 @property (nonatomic, assign) NSTimeInterval textDuration;
+/// 动画时间真实计算结果（随字符长度变化）
+@property (nonatomic, assign) BOOL isRealDuration;
 
 @end
 
@@ -210,7 +212,13 @@ static CGFloat const originXY = 3.0;
 
 - (void)textAnimation:(NSTimeInterval)duration
 {
-    _textDuration = (0.0 >= duration ? 8.0 : duration);
+    if (!self.isRealDuration)
+    {
+        _textDuration = (0.0 >= duration ? 8.0 : duration);
+        _textDuration = (self.widthText <= self.bgView.frame.size.width ? _textDuration : (_textDuration * (self.widthText / self.bgView.frame.size.width)));
+        
+        self.isRealDuration = YES;
+    }
     
     [UIView animateWithDuration:_textDuration delay:_delayTime options:UIViewAnimationOptionCurveLinear animations:^{
         // 位移
