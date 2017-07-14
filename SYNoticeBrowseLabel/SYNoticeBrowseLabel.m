@@ -8,11 +8,13 @@
 
 #import "SYNoticeBrowseLabel.h"
 
-static CGFloat const originXY = 3.0;
+static CGFloat const originXY = 5.0;
 
 @interface SYNoticeBrowseLabel ()
 
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UILabel *label01;
 @property (nonatomic, strong) UILabel *label02;
 
@@ -36,7 +38,10 @@ static CGFloat const originXY = 3.0;
         self.clipsToBounds = YES;
         self.layer.masksToBounds = YES;
         
-        _textFont = [UIFont systemFontOfSize:13.0];
+        _titleFont = [UIFont systemFontOfSize:12.0];
+        _titleColor = [UIColor blackColor];
+        
+        _textFont = [UIFont systemFontOfSize:12.0];
         _textColor = [UIColor blackColor];
         
         _textAnimationPauseWhileClick = YES;
@@ -59,12 +64,20 @@ static CGFloat const originXY = 3.0;
         self.originLabel = self.imageView.frame.origin.x + self.imageView.frame.size.width + originXY;
     }
     
-    self.bgView.frame = CGRectMake(self.originLabel, 0.0, (self.frame.size.width - self.originLabel), self.frame.size.height);
+    if (self.title)
+    {
+        self.titleLabel.frame = CGRectMake(self.originLabel, 0.0, self.widthTitle, self.frame.size.height);
+        self.lineView.frame = CGRectMake((self.titleLabel.frame.size.width - 0.5), 10.0, 0.5, (self.titleLabel.frame.size.height - 10.0 * 2));
+        
+        self.originLabel = self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + originXY;
+    }
+    
+    self.bgView.frame = CGRectMake(self.originLabel, 0.0, (self.frame.size.width - self.originLabel - (self.images || self.title ? originXY : 0.0)), self.frame.size.height);
     self.label01.frame = CGRectMake(0.0, 0.0, self.widthText, self.bgView.frame.size.height);
     self.label02.frame = CGRectMake(self.widthText, 0.0, self.widthText, self.bgView.frame.size.height);
 }
 
-#pragma mark - touch 
+#pragma mark - touch
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -88,7 +101,7 @@ static CGFloat const originXY = 3.0;
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-
+    
 }
 
 #pragma mark - getter
@@ -102,6 +115,25 @@ static CGFloat const originXY = 3.0;
         _imageView.backgroundColor = [UIColor clearColor];
     }
     return _imageView;
+}
+
+- (UILabel *)titleLabel
+{
+    if (_titleLabel == nil)
+    {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.textColor = _titleColor;
+        _titleLabel.font = _titleFont;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:_titleLabel];
+        
+        self.lineView = [[UIView alloc] init];
+        self.lineView.backgroundColor = [UIColor lightGrayColor];
+        [self.titleLabel addSubview:self.lineView];
+    }
+    return _titleLabel;
 }
 
 - (UILabel *)label01
@@ -168,6 +200,35 @@ static CGFloat const originXY = 3.0;
     }
 }
 
+- (void)setTitle:(NSString *)title
+{
+    _title = title;
+    if (_title && 0 < _title.length)
+    {
+        self.titleLabel.text = _title;
+        
+        [self resetUI];
+    }
+}
+
+- (void)setTitleFont:(UIFont *)titleFont
+{
+    _titleFont = titleFont;
+    if (_titleFont)
+    {
+        self.titleLabel.font = _titleFont;
+    }
+}
+
+- (void)setTitleColor:(UIColor *)titleColor
+{
+    _titleColor = titleColor;
+    if (_titleColor)
+    {
+        self.titleLabel.textColor = _titleColor;
+    }
+}
+
 - (void)setText:(NSString *)text
 {
     _text = text;
@@ -201,6 +262,14 @@ static CGFloat const originXY = 3.0;
 }
 
 #pragma mark - methord
+
+- (CGFloat)widthTitle
+{
+    CGFloat width = self.bgView.frame.size.width;
+    CGSize size = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: self.titleLabel.font}];
+    width = (size.width + 10.0);
+    return width;
+}
 
 - (CGFloat)widthText
 {

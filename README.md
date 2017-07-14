@@ -34,6 +34,19 @@ noticeLabel.delayTime = 2.0;
 
 
 #### 变更记录
+* 20170714
+  * 优化图标显示
+  * 添加公告标题设置属性
+~~~ javascript
+/// 公告标题（默认无）
+@property (nonatomic, strong) NSString *title;
+/// 公告标题字体大小（默认12.0）
+@property (nonatomic, strong) UIFont *titleFont;
+/// 公告标题字体颜色（默认黑色）
+@property (nonatomic, strong) UIColor *titleColor;
+~~~
+
+
 * 20170605 
   * 动画时间随字符设置长度自适应，避免相同的动画时间，字符长度越长时，动画越快。
 

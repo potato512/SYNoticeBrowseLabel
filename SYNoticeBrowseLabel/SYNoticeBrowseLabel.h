@@ -16,6 +16,13 @@
 /// 图标系统
 @property (nonatomic, strong) NSArray <UIImage *> *images;
 
+/// 公告标题（默认无）
+@property (nonatomic, strong) NSString *title;
+/// 公告标题字体大小（默认12.0）
+@property (nonatomic, strong) UIFont *titleFont;
+/// 公告标题字体颜色（默认黑色）
+@property (nonatomic, strong) UIColor *titleColor;
+
 /// 字符
 @property (nonatomic, strong) NSString *text;
 /// 字体大小（默认13.0）
