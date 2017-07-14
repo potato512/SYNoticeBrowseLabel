@@ -8,7 +8,7 @@
 
 #import "SYNoticeBrowseLabel.h"
 
-static CGFloat const originXY = 5.0;
+static CGFloat const originXY = 10.0;
 
 @interface SYNoticeBrowseLabel ()
 
@@ -70,6 +70,8 @@ static CGFloat const originXY = 5.0;
     {
         self.titleLabel.frame = CGRectMake(self.originLabel, 0.0, self.widthTitle, self.frame.size.height);
         self.lineView.frame = CGRectMake((self.titleLabel.frame.size.width - 0.5), 10.0, 0.5, (self.titleLabel.frame.size.height - 10.0 * 2));
+   
+        self.titleLabel.textAlignment = (self.images ? NSTextAlignmentLeft : NSTextAlignmentCenter);
         
         self.originLabel = self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + originXY;
     }
@@ -278,7 +280,7 @@ static CGFloat const originXY = 5.0;
 {
     CGFloat width = self.bgView.frame.size.width;
     CGSize size = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: self.titleLabel.font}];
-    width = (size.width + 10.0);
+    width = (size.width + originXY);
     return width;
 }
 
@@ -286,7 +288,7 @@ static CGFloat const originXY = 5.0;
 {
     CGFloat width = self.bgView.frame.size.width;
     CGSize size = [self.label01.text sizeWithAttributes:@{NSFontAttributeName: self.label01.font}];
-    width = (width > size.width ? width : (size.width + 10.0));
+    width = (width > size.width ? width : (size.width + originXY));
     return width;
 }
 
