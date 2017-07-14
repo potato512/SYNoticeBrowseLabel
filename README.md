@@ -20,6 +20,12 @@ noticeLabel.textFont = [UIFont systemFontOfSize:15.0];
 noticeLabel.text = @"自定义跑马灯功能类标签。";
 // 图标
 noticeLabel.images = @[[UIImage imageNamed:@"face01"], [UIImage imageNamed:@"face02"], [UIImage imageNamed:@"face03"], [UIImage imageNamed:@"face04"], [UIImage imageNamed:@"face05"], [UIImage imageNamed:@"face06"]];
+// 标题
+noticeLabel.title = @"公告";
+// 标题字体颜色
+noticeLabel.titleColor = [UIColor brownColor];
+// 标题字体大小
+noticeLabel.titleFont = [UIFont systemFontOfSize:12.0];
 // 点击时是否暂停动画（默认不停NO）
 noticeLabel.textAnimationPauseWhileClick = NO;
 // 文件点击回调
