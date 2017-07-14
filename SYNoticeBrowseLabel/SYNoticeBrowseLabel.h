@@ -23,11 +23,14 @@
 /// 公告标题字体颜色（默认黑色）
 @property (nonatomic, strong) UIColor *titleColor;
 
-/// 字符
+/// 公告标题与内容分割线颜色（默认灰色，当且公当公告标题存在时才有效）
+@property (nonatomic, strong) UIColor *lineColor;
+
+/// 公告内容
 @property (nonatomic, strong) NSString *text;
-/// 字体大小（默认13.0）
+/// 公告内容字体大小（默认13.0）
 @property (nonatomic, strong) UIFont *textFont;
-/// 字体颜色（默认黑色）
+/// 公告内容字体颜色（默认黑色）
 @property (nonatomic, strong) UIColor *textColor;
 
 /// 点击文本响应回调

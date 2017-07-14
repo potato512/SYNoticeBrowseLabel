@@ -26,6 +26,8 @@ noticeLabel.title = @"公告";
 noticeLabel.titleColor = [UIColor brownColor];
 // 标题字体大小
 noticeLabel.titleFont = [UIFont systemFontOfSize:12.0];
+// 标题与内容分割线颜色
+noticeLabel.lineColor = [UIColor purpleColor];
 // 点击时是否暂停动画（默认不停NO）
 noticeLabel.textAnimationPauseWhileClick = NO;
 // 文件点击回调
@@ -50,6 +52,9 @@ noticeLabel.delayTime = 2.0;
 @property (nonatomic, strong) UIFont *titleFont;
 /// 公告标题字体颜色（默认黑色）
 @property (nonatomic, strong) UIColor *titleColor;
+
+/// 公告标题与内容分割线颜色（默认灰色，当且公当公告标题存在时才有效）
+@property (nonatomic, strong) UIColor *lineColor;
 ~~~
 
 

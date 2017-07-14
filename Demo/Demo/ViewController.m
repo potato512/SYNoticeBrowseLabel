@@ -126,6 +126,7 @@
     noticeLabel4.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.6];
     noticeLabel4.title = @"直播海南";
     noticeLabel4.titleColor = [UIColor brownColor];
+    noticeLabel4.lineColor = [UIColor redColor];
     noticeLabel4.text = @"男子买到过期食品获索赔，刚出超市便遭围殴！店长：我不是第一次看见他了...";
     noticeLabel4.images = @[[UIImage imageNamed:@"face01"]];
     noticeLabel4.delayTime = 3.0;
@@ -142,8 +143,9 @@
     
     SYNoticeBrowseLabel *noticeLabel6 = [[SYNoticeBrowseLabel alloc] initWithFrame:CGRectMake(10.0, 350.0, (self.view.frame.size.width - 10.0 * 2), 30.0)];
     [self.view addSubview:noticeLabel6];
-    noticeLabel6.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.6];
+    noticeLabel6.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.1];
     noticeLabel6.title = @"纯粹的车评人";
+    noticeLabel6.lineColor = [UIColor purpleColor];
     noticeLabel6.text = @"汽车库存成灾！汽车下乡或将重启，优惠是真的很大，你买账吗？";
     noticeLabel6.delayTime = 3.0;
     [noticeLabel6 textAnimation:3.0];

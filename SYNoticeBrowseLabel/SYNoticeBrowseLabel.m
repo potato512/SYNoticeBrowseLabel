@@ -41,6 +41,8 @@ static CGFloat const originXY = 5.0;
         _titleFont = [UIFont systemFontOfSize:12.0];
         _titleColor = [UIColor blackColor];
         
+        _lineColor = [UIColor lightGrayColor];
+        
         _textFont = [UIFont systemFontOfSize:12.0];
         _textColor = [UIColor blackColor];
         
@@ -130,7 +132,7 @@ static CGFloat const originXY = 5.0;
         [self addSubview:_titleLabel];
         
         self.lineView = [[UIView alloc] init];
-        self.lineView.backgroundColor = [UIColor lightGrayColor];
+        self.lineView.backgroundColor = _lineColor;
         [self.titleLabel addSubview:self.lineView];
     }
     return _titleLabel;
@@ -258,6 +260,15 @@ static CGFloat const originXY = 5.0;
     {
         self.label01.textColor = _textColor;
         self.label02.textColor = _textColor;
+    }
+}
+
+- (void)setLineColor:(UIColor *)lineColor
+{
+    _lineColor = lineColor;
+    if (_lineColor)
+    {
+        self.lineView.backgroundColor = _lineColor;
     }
 }
 
