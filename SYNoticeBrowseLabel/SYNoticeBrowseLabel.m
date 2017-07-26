@@ -302,6 +302,12 @@ static CGFloat const originXY = 10.0;
         self.isRealDuration = YES;
     }
     
+    // 动画执行
+    [self performSelector:@selector(viewAnimationMove)];
+}
+
+- (void)viewAnimationMove
+{
     [UIView animateWithDuration:_textDuration delay:_delayTime options:UIViewAnimationOptionCurveLinear animations:^{
         // 位移
         CGRect frame01 = self.label01.frame;
@@ -320,8 +326,9 @@ static CGFloat const originXY = 10.0;
         CGRect frame02 = self.label02.frame;
         frame02.origin.x = self.widthText;
         self.label02.frame = frame02;
+        
         // 重复执行
-        [self textAnimation:_textDuration];
+        [self performSelector:@selector(viewAnimationMove)];
     }];
 }
 
