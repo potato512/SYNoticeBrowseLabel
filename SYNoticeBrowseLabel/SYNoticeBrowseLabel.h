@@ -8,15 +8,35 @@
 
 #import <UIKit/UIKit.h>
 
+/// 公告标题数组播放模式（只有一个标题时，静止不播放，或横向播放；有多个标题时，向上滚动播放）
+typedef NS_ENUM(NSInteger, SYNoticeBrowseMode)
+{
+    /// 公告标题数组播放模式 只有一个标题时，静止不播放
+    SYNoticeBrowseDefalut = 0,
+    
+    /// 公告标题数组播放模式 只有一个标题时，横向播放
+    SYNoticeBrowseHorizontalScrollWhileSingle = 1,
+    
+    /// 公告标题数组播放模式 有多个标题时，向上滚动播放
+    SYNoticeBrowseVerticalScrollWhileMore = 2,
+};
+
 @interface SYNoticeBrowseLabel : UIView
 
 /// 禁止使用
 - (instancetype)init __attribute__((unavailable("init 方法不可用，请用 initWithName:")));
 
+/// 释放
+- (void)releaseNoticeBrowseLabel;
+
+/// 刷新数据
+- (void)reloadData;
+
+
 /// 图标系统
 @property (nonatomic, strong) NSArray <UIImage *> *images;
 
-/// 公告标题（默认无）
+/// 公告标题数组（默认无）
 @property (nonatomic, strong) NSString *title;
 /// 公告标题字体大小（默认12.0）
 @property (nonatomic, strong) UIFont *titleFont;
@@ -27,7 +47,9 @@
 @property (nonatomic, strong) UIColor *lineColor;
 
 /// 公告内容
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSArray <NSString *> *texts;
+/// 公告标题数组播放模式（只有一个标题时，静止不播放，或横向播放；有多个标题时，向上滚动播放）
+@property (nonatomic, assign) SYNoticeBrowseMode browseMode;
 /// 公告内容字体大小（默认13.0）
 @property (nonatomic, strong) UIFont *textFont;
 /// 公告内容字体颜色（默认黑色）
@@ -42,5 +64,9 @@
 - (void)textAnimation:(NSTimeInterval)duration;
 /// 延迟动画时间（默认0.0）
 @property (nonatomic, assign) NSTimeInterval delayTime;
+
+
+
+
 
 @end
