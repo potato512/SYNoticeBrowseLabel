@@ -12,6 +12,11 @@
 
 /// 禁止使用
 - (instancetype)init __attribute__((unavailable("init 方法不可用，请用 initWithName:")));
+/// 内存释放（避免定时器造成内存泄露）
+- (void)releaseNotice;
+/// 刷新信息
+- (void)reloadData;
+
 
 /// 图标系统
 @property (nonatomic, strong) NSArray <UIImage *> *images;
@@ -27,7 +32,7 @@
 @property (nonatomic, strong) UIColor *lineColor;
 
 /// 公告内容
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSArray *texts;
 /// 公告内容字体大小（默认13.0）
 @property (nonatomic, strong) UIFont *textFont;
 /// 公告内容字体颜色（默认黑色）
@@ -39,7 +44,7 @@
 /// 点击文本时是否暂停动画（默认不停NO）
 @property (nonatomic, assign) BOOL textAnimationPauseWhileClick;
 /// 开始动画（默认8.0）
-- (void)textAnimation:(NSTimeInterval)duration;
+@property (nonatomic, assign) NSTimeInterval durationTime;
 /// 延迟动画时间（默认0.0）
 @property (nonatomic, assign) NSTimeInterval delayTime;
 
