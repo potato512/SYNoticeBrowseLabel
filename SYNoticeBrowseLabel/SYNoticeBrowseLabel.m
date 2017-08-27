@@ -109,7 +109,7 @@ static CGFloat const originXY = 10.0;
         {
             self.textClick();
         }
-    }    
+    }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -490,22 +490,22 @@ static CGFloat const originXY = 10.0;
     }];
     
     /*
-    [UIView beginAnimations:@"testAnimation" context:NULL];
-    [UIView setAnimationDuration:_textDuration];
-    [UIView setAnimationDelay:_delayTime];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    [UIView setAnimationRepeatCount:999999];
-    //
-    CGRect frame = _label01.frame;
-    frame.origin.x = -frame.size.width;
-    _label01.frame = frame;
-    //
-    CGRect frame2 = _label02.frame;
-    frame2.origin.x = 0.0;
-    _label02.frame = frame2;
-    //
-    [UIView commitAnimations];
-    */
+     [UIView beginAnimations:@"testAnimation" context:NULL];
+     [UIView setAnimationDuration:_textDuration];
+     [UIView setAnimationDelay:_delayTime];
+     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+     [UIView setAnimationRepeatCount:999999];
+     //
+     CGRect frame = _label01.frame;
+     frame.origin.x = -frame.size.width;
+     _label01.frame = frame;
+     //
+     CGRect frame2 = _label02.frame;
+     frame2.origin.x = 0.0;
+     _label02.frame = frame2;
+     //
+     [UIView commitAnimations];
+     */
 }
 
 #pragma mark - 定时器
@@ -564,7 +564,7 @@ static CGFloat const originXY = 10.0;
     [self setUI];
     
     [self textAnimation:_durationTime];
-
+    
     [self startTimer];
 }
 

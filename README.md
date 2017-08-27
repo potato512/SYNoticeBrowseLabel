@@ -4,46 +4,87 @@
 ![SYNoticeBrowseLabel.gif](./SYNoticeBrowseLabel.gif)
 
 #### 使用示例
+
 ~~~ javascript
 // 导入头文件
 #import "SYNoticeBrowseLabel.h"
+~~~ 
 
+~~~ javascript
 // 实例化
 SYNoticeBrowseLabel *noticeLabel = [[SYNoticeBrowseLabel alloc] initWithFrame:CGRectMake(10.0, 10.0, (self.view.frame.size.width - 10.0 * 2), 30.0)];
 [self.view addSubview:noticeLabel2];
 noticeLabel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+~~~ 
+
+~~~ javascript
 // 文本颜色
 noticeLabel.textColor = [UIColor purpleColor];
+
 // 文本字体
 noticeLabel.textFont = [UIFont systemFontOfSize:15.0];
+
 // 文本
 noticeLabel.text = @"自定义跑马灯功能类标签。";
+~~~ 
+
+~~~ javascript
 // 图标
 noticeLabel.images = @[[UIImage imageNamed:@"face01"], [UIImage imageNamed:@"face02"], [UIImage imageNamed:@"face03"], [UIImage imageNamed:@"face04"], [UIImage imageNamed:@"face05"], [UIImage imageNamed:@"face06"]];
+~~~ 
+
+~~~ javascript
 // 标题
 noticeLabel.title = @"公告";
+
 // 标题字体颜色
 noticeLabel.titleColor = [UIColor brownColor];
+
 // 标题字体大小
 noticeLabel.titleFont = [UIFont systemFontOfSize:12.0];
+~~~ 
+
+~~~ javascript
 // 标题与内容分割线颜色
 noticeLabel.lineColor = [UIColor purpleColor];
+~~~ 
+
+~~~ javascript
 // 点击时是否暂停动画（默认不停NO）
 noticeLabel.textAnimationPauseWhileClick = NO;
+
 // 文件点击回调
 noticeLabel.textClick = ^(){
 [[[UIAlertView alloc] initWithTitle:nil message:@"点击时，动画不受影响。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil] show];
 };
+~~~ 
+
+~~~ javascript
 // 延迟时间
 noticeLabel.delayTime = 2.0;
+
 // 动画
 [noticeLabel textAnimation:6.0];
-~~~
+~~~ 
+
+~~~ javascript
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    for (SYNoticeBrowseLabel *label in self.array)
+    {
+        [label releaseNoticeBrowseLabel];
+    }
+}
+
+~~~ 
+
 
 
 #### 变更记录
 * 20170827
-  * 版本号：1.3.0
+  * 版本号：2.1.0
   * 区分滚动形式
     * 单条内容向左水平滚动
     * 多条内容向上循环滚动
@@ -51,17 +92,17 @@ noticeLabel.delayTime = 2.0;
     * 删除方法：- (void)textAnimation:(NSTimeInterval)duration
     * 添加方法：- (void)releaseNotice;- (void)reloadData;
 
-
-* 20170816
-  * 版本号：1.2.0
-  * 添加按钮响应：默认不显示，位置大小固定——待完成
-    * 自定义按钮是否显示
-    * 自定义按钮标题
-    * 自定义按钮图标
-  * 方法优化：递归改成定时器
-
-
-* 20170726
+* 20170818——待完成
+  * 版本号：2.0.0
+  * 优化方法：循环播放的实现由递归修改成定时器触发
+    * 注意：内存释放，避免定时器造成内存泄露。
+  * 添加按钮属性：类似于更多——待完成
+    * 自定义标题
+    * 自定义图标
+    * 自定义样式
+    * 自定义交互响应
+  
+* 20170726 
   * 版本号：1.1.1
   * 修改动画调用方法
 
@@ -69,6 +110,7 @@ noticeLabel.delayTime = 2.0;
   * 版本号：1.1.0
   * 优化图标显示
   * 添加公告标题设置属性
+
 ~~~ javascript
 /// 公告标题（默认无）
 @property (nonatomic, strong) NSString *title;
@@ -88,9 +130,10 @@ noticeLabel.delayTime = 2.0;
 * 20170524 
   * 版本号：0.0.2
   * 添加延迟动画属性
+  * 修改适配任意长度的文本显示
+
 ~~~ javascript
 /// 延迟动画时间（默认0.0）
 @property (nonatomic, assign) NSTimeInterval delayTime;
 ~~~
-  * 修改适配任意长度的文本显示
 
