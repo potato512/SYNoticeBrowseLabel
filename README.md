@@ -102,7 +102,7 @@ noticeLabel.browseMode = SYNoticeBrowseVerticalScrollWhileMore;
 
 #### 变更记录
 * 20170831
-  * 版本号：2.2.2
+  * 版本号：2.2.0
   * 优化完善
 
 * 20170827
