@@ -26,6 +26,8 @@ static CGFloat const heightButton = 20.0;
 @property (nonatomic, strong) NSMutableArray *labelArray;
 @property (nonatomic, strong) NSMutableArray *textArray;
 @property (nonatomic, assign) NSInteger textIndex;
+@property (nonatomic, strong) UIButton *moreButton;
+@property (nonatomic, strong) UIView *morelineView;
 //
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, assign) CGFloat originLabel;
@@ -34,8 +36,6 @@ static CGFloat const heightButton = 20.0;
 @property (nonatomic, assign) NSTimeInterval textDuration;
 /// 动画时间真实计算结果（随字符长度变化）
 @property (nonatomic, assign) BOOL isRealDuration;
-
-@property (nonatomic, strong) UIButton *moreButton;
 
 @property (nonatomic, strong) NSTimer *timer;
 
@@ -111,7 +111,7 @@ static CGFloat const heightButton = 20.0;
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-
+    
 }
 
 - (void)moreButtonClick:(UIButton *)button
@@ -210,6 +210,10 @@ static CGFloat const heightButton = 20.0;
         _moreButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [_moreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_moreButton addTarget:self action:@selector(moreButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.morelineView = [[UIView alloc] init];
+        self.morelineView.backgroundColor = _lineColor;
+        [self addSubview:self.morelineView];
         
         [self addSubview:_moreButton];
     }
@@ -332,6 +336,8 @@ static CGFloat const heightButton = 20.0;
     if (_lineColor)
     {
         self.lineView.backgroundColor = _lineColor;
+        
+        self.morelineView.backgroundColor = _lineColor;
     }
 }
 
@@ -388,7 +394,7 @@ static CGFloat const heightButton = 20.0;
     {
         self.button.hidden = NO;
         self.button.frame = CGRectMake((self.frame.size.width - widthButton - originXY), (self.frame.size.height - heightButton) / 2, widthButton, heightButton);
-        
+        self.morelineView.frame = CGRectMake(self.button.frame.origin.x, 10.0, 0.5, (self.frame.size.height - 10.0 * 2));
     }
     
     CGFloat widthBgView = (self.frame.size.width - (0.0 == self.originLabel ? originXY : self.originLabel) - ((self.images || self.title) ? originXY : 0.0) - (self.showMoreButton ? (self.button.frame.size.width + originXY) : 0.0) - (0.0 == self.originLabel ? originXY : 0.0));
@@ -462,6 +468,7 @@ static CGFloat const heightButton = 20.0;
     {
         self.button.hidden = NO;
         self.button.frame = CGRectMake((self.frame.size.width - widthButton - originXY), (self.frame.size.height - heightButton) / 2, widthButton, heightButton);
+        self.morelineView.frame = CGRectMake(self.button.frame.origin.x, 10.0, 0.5, (self.frame.size.height - 10.0 * 2));
     }
     
     CGFloat widthBgView = (self.frame.size.width - (0.0 == self.originLabel ? originXY : self.originLabel) - ((self.images || self.title) ? originXY : 0.0) - (self.showMoreButton ? (self.button.frame.size.width + originXY) : 0.0) - (0.0 == self.originLabel ? originXY : 0.0));
@@ -619,7 +626,7 @@ static CGFloat const heightButton = 20.0;
             time = _textDuration;
         }
     }
-
+    
     self.timer = [NSTimer timerWithTimeInterval:time target:self selector:selector userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self.timer fire]; // 启动

@@ -125,7 +125,6 @@
         NSLog(@"text = %@", text);
     };
     noticeLabel4.showMoreButton = YES;
-    noticeLabel4.button.backgroundColor = [UIColor orangeColor];
     noticeLabel4.moreClick = ^(UIButton *button){
         [[[UIAlertView alloc] initWithTitle:nil message:@"more button click" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
     };
