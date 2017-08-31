@@ -80,9 +80,31 @@ noticeLabel.delayTime = 2.0;
 
 ~~~ 
 
+~~~ javascript
+// 显示更多按钮
+noticeLabel.showMoreButton = YES;
+
+// 更多按钮属性设置
+noticeLabel.button.backgroundColor = [UIColor orangeColor];
+
+// 更多按钮响应回调
+noticeLabel.moreClick = ^(UIButton *button){
+    [[[UIAlertView alloc] initWithTitle:nil message:@"more button click" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+};
+~~~ 
+
+~~~ javascript
+// 内容显示模式
+noticeLabel.browseMode = SYNoticeBrowseVerticalScrollWhileMore;
+~~~
+
 
 
 #### 变更记录
+* 20170831
+  * 版本号：2.2.2
+  * 优化完善
+
 * 20170827
   * 版本号：2.1.0
   * 区分滚动形式
@@ -96,7 +118,7 @@ noticeLabel.delayTime = 2.0;
   * 版本号：2.0.0
   * 优化方法：循环播放的实现由递归修改成定时器触发
     * 注意：内存释放，避免定时器造成内存泄露。
-  * 添加按钮属性：类似于更多——待完成
+  * 添加按钮属性：类似于更多
     * 自定义标题
     * 自定义图标
     * 自定义样式

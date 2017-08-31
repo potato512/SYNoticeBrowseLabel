@@ -48,7 +48,7 @@
     noticeLabel.texts = @[@"自定义跑马灯功能类标签。"];
     noticeLabel.images = @[[UIImage imageNamed:@"face01"], [UIImage imageNamed:@"face02"], [UIImage imageNamed:@"face03"], [UIImage imageNamed:@"face04"], [UIImage imageNamed:@"face05"], [UIImage imageNamed:@"face06"]];
     noticeLabel.textAnimationPauseWhileClick = NO;
-    noticeLabel.textClick = ^(){
+    noticeLabel.textClick = ^(NSInteger index){
         [[[UIAlertView alloc] initWithTitle:nil message:@"点击时，动画不受影响。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil] show];
     };
     [noticeLabel reloadData];

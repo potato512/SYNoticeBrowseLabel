@@ -52,9 +52,9 @@
     noticeLabel.tag = 1000;
     noticeLabel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     noticeLabel.textColor = [UIColor blackColor];
-    noticeLabel.textFont = [UIFont boldSystemFontOfSize:12.0];
+    noticeLabel.textFont = [UIFont systemFontOfSize:12.0];
     noticeLabel.texts = @[@"自定义跑马灯功能类标签（仅内容）。"];
-    noticeLabel.textClick = ^(){
+    noticeLabel.textClick = ^(NSInteger index){
         [[[UIAlertView alloc] initWithTitle:nil message:@"点击时，暂停动画；点击释放时，恢复动画。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil] show];
     };
     noticeLabel.durationTime = 3.0;

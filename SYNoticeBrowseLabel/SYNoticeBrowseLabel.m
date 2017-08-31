@@ -7,8 +7,11 @@
 //
 
 #import "SYNoticeBrowseLabel.h"
+#import "UIScrollView+SYTouch.h"
 
 static CGFloat const originXY = 10.0;
+static CGFloat const widthButton = 40.0;
+static CGFloat const heightButton = 20.0;
 
 @interface SYNoticeBrowseLabel () <UIScrollViewDelegate>
 
@@ -32,6 +35,7 @@ static CGFloat const originXY = 10.0;
 /// 动画时间真实计算结果（随字符长度变化）
 @property (nonatomic, assign) BOOL isRealDuration;
 
+@property (nonatomic, strong) UIButton *moreButton;
 
 @property (nonatomic, strong) NSTimer *timer;
 
@@ -56,8 +60,10 @@ static CGFloat const originXY = 10.0;
         _textColor = [UIColor blackColor];
         
         _textAnimationPauseWhileClick = YES;
-        
         _textDuration = 8.0;
+        
+        _browseMode = SYNoticeBrowseDefalut;
+        _showMoreButton = NO;
     }
     return self;
 }
@@ -85,36 +91,35 @@ static CGFloat const originXY = 10.0;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (self.isSingleRow)
-    {
-        [self textAnimationStop];
-    }
+    [self textAnimationStop];
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (self.isSingleRow)
-    {
-        [self textAnimationStart];
-    }
+    [self textAnimationStart];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (self.isSingleRow)
+    [self textAnimationStart];
+    
+    if (self.textClick)
     {
-        [self textAnimationStart];
-        
-        if (self.textClick)
-        {
-            self.textClick();
-        }
+        self.textClick(self.textIndex - 1);
     }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
+
+}
+
+- (void)moreButtonClick:(UIButton *)button
+{
+    if (self.moreClick)
+    {
+        self.moreClick(button);
+    }
 }
 
 #pragma mark - getter
@@ -193,6 +198,28 @@ static CGFloat const originXY = 10.0;
         [self addSubview:_bgView];
     }
     return _bgView;
+}
+
+- (UIButton *)moreButton
+{
+    if (_moreButton == nil)
+    {
+        _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _moreButton.backgroundColor = [UIColor clearColor];
+        [_moreButton setTitle:@"更多" forState:UIControlStateNormal];
+        _moreButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
+        [_moreButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_moreButton addTarget:self action:@selector(moreButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addSubview:_moreButton];
+    }
+    
+    return _moreButton;
+}
+
+- (UIButton *)button
+{
+    return self.moreButton;
 }
 
 #pragma mark 单内容视图
@@ -357,7 +384,15 @@ static CGFloat const originXY = 10.0;
         self.originLabel = self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + originXY;
     }
     
-    self.bgView.frame = CGRectMake(self.originLabel, 0.0, (self.frame.size.width - self.originLabel - (self.images || self.title ? originXY : 0.0)), self.frame.size.height);
+    if (self.showMoreButton)
+    {
+        self.button.hidden = NO;
+        self.button.frame = CGRectMake((self.frame.size.width - widthButton - originXY), (self.frame.size.height - heightButton) / 2, widthButton, heightButton);
+        
+    }
+    
+    CGFloat widthBgView = (self.frame.size.width - (0.0 == self.originLabel ? originXY : self.originLabel) - ((self.images || self.title) ? originXY : 0.0) - (self.showMoreButton ? (self.button.frame.size.width + originXY) : 0.0) - (0.0 == self.originLabel ? originXY : 0.0));
+    self.bgView.frame = CGRectMake((0.0 == self.originLabel ? originXY : self.originLabel), 0.0, widthBgView, self.frame.size.height);
     self.scrollView.frame = self.bgView.bounds;
     int index = 0;
     for (UILabel *label in self.labelArray)
@@ -423,47 +458,19 @@ static CGFloat const originXY = 10.0;
         self.originLabel = self.titleLabel.frame.origin.x + self.titleLabel.frame.size.width + originXY;
     }
     
-    self.bgView.frame = CGRectMake(self.originLabel, 0.0, (self.frame.size.width - self.originLabel - (self.images || self.title ? originXY : 0.0)), self.frame.size.height);
+    if (self.showMoreButton)
+    {
+        self.button.hidden = NO;
+        self.button.frame = CGRectMake((self.frame.size.width - widthButton - originXY), (self.frame.size.height - heightButton) / 2, widthButton, heightButton);
+    }
+    
+    CGFloat widthBgView = (self.frame.size.width - (0.0 == self.originLabel ? originXY : self.originLabel) - ((self.images || self.title) ? originXY : 0.0) - (self.showMoreButton ? (self.button.frame.size.width + originXY) : 0.0) - (0.0 == self.originLabel ? originXY : 0.0));
+    self.bgView.frame = CGRectMake((0.0 == self.originLabel ? originXY : self.originLabel), 0.0, widthBgView, self.frame.size.height);
     self.label01.frame = CGRectMake(0.0, 0.0, self.widthText, self.bgView.frame.size.height);
     self.label02.frame = CGRectMake(self.widthText, 0.0, self.widthText, self.bgView.frame.size.height);
 }
 
 #pragma mark 动画
-
-- (void)textAnimationStart
-{
-    if (_textAnimationPauseWhileClick)
-    {
-        [self playlayer:self.label01.layer];
-        [self playlayer:self.label02.layer];
-    }
-}
-
-- (void)textAnimationStop
-{
-    if (_textAnimationPauseWhileClick)
-    {
-        [self pauselayer:self.label01.layer];
-        [self pauselayer:self.label02.layer];
-    }
-}
-
-- (void)pauselayer:(CALayer *)layer
-{
-    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
-    layer.speed = 0.0;
-    layer.timeOffset = pausedTime;
-}
-
-- (void)playlayer:(CALayer *)layer
-{
-    CFTimeInterval pausedTime = [layer timeOffset];
-    layer.speed = 1.0;
-    layer.timeOffset = 0.0;
-    layer.beginTime = 0.0;
-    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
-    layer.beginTime = timeSincePause;
-}
 
 - (void)viewAnimationMoveSingleRow
 {
@@ -508,13 +515,111 @@ static CGFloat const originXY = 10.0;
      */
 }
 
+#pragma mark - 暂停与继续动画
+
+- (void)textAnimationStart
+{
+    if (_textAnimationPauseWhileClick)
+    {
+        if (self.isSingleRow)
+        {
+            if (_browseMode == SYNoticeBrowseHorizontalScrollWhileSingle)
+            {
+                [self playlayer:self.label01.layer];
+                [self playlayer:self.label02.layer];
+            }
+        }
+        else
+        {
+            if (_browseMode == SYNoticeBrowseVerticalScrollWhileMore)
+            {
+                if (self.timer)
+                {
+                    [self.timer setFireDate:[NSDate distantPast]];
+                }
+            }
+        }
+    }
+}
+
+- (void)textAnimationStop
+{
+    if (_textAnimationPauseWhileClick)
+    {
+        if (self.isSingleRow)
+        {
+            if (_browseMode == SYNoticeBrowseHorizontalScrollWhileSingle)
+            {
+                [self pauselayer:self.label01.layer];
+                [self pauselayer:self.label02.layer];
+            }
+        }
+        else
+        {
+            if (_browseMode == SYNoticeBrowseVerticalScrollWhileMore)
+            {
+                if (self.timer)
+                {
+                    [self.timer setFireDate:[NSDate distantFuture]];
+                }
+            }
+        }
+    }
+}
+
+- (void)pauselayer:(CALayer *)layer
+{
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+- (void)playlayer:(CALayer *)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
+}
+
 #pragma mark - 定时器
 
 - (void)startTimer
 {
-    SEL selector = (self.isSingleRow ? @selector(viewAnimationMoveSingleRow) : @selector(viewAnimationMoveMoreRow));
-    NSTimeInterval time = (self.isSingleRow ? (_textDuration + _delayTime) : _textDuration);
+    SEL selector = nil;
+    NSTimeInterval time = 0.0;
     
+    if (_browseMode == SYNoticeBrowseDefalut)
+    {
+        return;
+    }
+    else if (_browseMode == SYNoticeBrowseHorizontalScrollWhileSingle)
+    {
+        if (self.isSingleRow)
+        {
+            selector = @selector(viewAnimationMoveSingleRow);
+            time = (_textDuration + _delayTime);
+        }
+        else
+        {
+            return;
+        }
+    }
+    else if (_browseMode == SYNoticeBrowseVerticalScrollWhileMore)
+    {
+        if (self.isSingleRow)
+        {
+            return;
+        }
+        else
+        {
+            selector = @selector(viewAnimationMoveMoreRow);
+            time = _textDuration;
+        }
+    }
+
     self.timer = [NSTimer timerWithTimeInterval:time target:self selector:selector userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self.timer fire]; // 启动

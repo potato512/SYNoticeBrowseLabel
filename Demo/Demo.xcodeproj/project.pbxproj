@@ -22,6 +22,7 @@
 		A7AF85D51ED2F55200D81E01 /* face05.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF85CF1ED2F55200D81E01 /* face05.png */; };
 		A7AF85D61ED2F55200D81E01 /* face06.png in Resources */ = {isa = PBXBuildFile; fileRef = A7AF85D01ED2F55200D81E01 /* face06.png */; };
 		A7AF85DA1ED2F59B00D81E01 /* SYNoticeBrowseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AF85D91ED2F59B00D81E01 /* SYNoticeBrowseLabel.m */; };
+		A7B4D9771F57C1BC00C977C3 /* UIScrollView+SYTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B4D9761F57C1BC00C977C3 /* UIScrollView+SYTouch.m */; };
 		DF6335E71F529904002B10F8 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6335E61F529904002B10F8 /* BaseViewController.m */; };
 		DF6335EA1F529B0E002B10F8 /* OnlyContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6335E91F529B0E002B10F8 /* OnlyContentVC.m */; };
 		DF6335ED1F529B34002B10F8 /* PngContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6335EC1F529B34002B10F8 /* PngContentVC.m */; };
@@ -77,6 +78,8 @@
 		A7AF85D01ED2F55200D81E01 /* face06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face06.png; sourceTree = "<group>"; };
 		A7AF85D81ED2F59B00D81E01 /* SYNoticeBrowseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNoticeBrowseLabel.h; sourceTree = "<group>"; };
 		A7AF85D91ED2F59B00D81E01 /* SYNoticeBrowseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYNoticeBrowseLabel.m; sourceTree = "<group>"; };
+		A7B4D9751F57C1BC00C977C3 /* UIScrollView+SYTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SYTouch.h"; sourceTree = "<group>"; };
+		A7B4D9761F57C1BC00C977C3 /* UIScrollView+SYTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SYTouch.m"; sourceTree = "<group>"; };
 		DF6335E51F529904002B10F8 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		DF6335E61F529904002B10F8 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		DF6335E81F529B0E002B10F8 /* OnlyContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlyContentVC.h; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 			children = (
 				A7AF85D81ED2F59B00D81E01 /* SYNoticeBrowseLabel.h */,
 				A7AF85D91ED2F59B00D81E01 /* SYNoticeBrowseLabel.m */,
+				A7B4D9751F57C1BC00C977C3 /* UIScrollView+SYTouch.h */,
+				A7B4D9761F57C1BC00C977C3 /* UIScrollView+SYTouch.m */,
 			);
 			name = SYNoticeBrowseLabel;
 			path = ../../SYNoticeBrowseLabel;
@@ -386,6 +391,7 @@
 				DF6336021F529BE5002B10F8 /* PngTitleContentButtonVC.m in Sources */,
 				A7AF859D1ED2F45300D81E01 /* ViewController.m in Sources */,
 				A7AF859A1ED2F45300D81E01 /* AppDelegate.m in Sources */,
+				A7B4D9771F57C1BC00C977C3 /* UIScrollView+SYTouch.m in Sources */,
 				A7AF85971ED2F45300D81E01 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

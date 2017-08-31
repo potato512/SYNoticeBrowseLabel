@@ -53,14 +53,20 @@ typedef NS_ENUM(NSInteger, SYNoticeBrowseMode)
 /// 公告内容字体颜色（默认黑色）
 @property (nonatomic, strong) UIColor *textColor;
 
-/// 点击文本响应回调
-@property (nonatomic, copy) void (^textClick)(void);
-
 /// 点击文本时是否暂停动画（默认不停NO）
 @property (nonatomic, assign) BOOL textAnimationPauseWhileClick;
 /// 开始动画（默认8.0）
 @property (nonatomic, assign) NSTimeInterval durationTime;
 /// 延迟动画时间（默认0.0）
 @property (nonatomic, assign) NSTimeInterval delayTime;
+
+/// 点击文本响应回调（index多个滚屏轮播时有效）
+@property (nonatomic, copy) void (^textClick)(NSInteger index);
+/// 更多响应按钮（默认NO，不显示）
+@property (nonatomic, assign) BOOL showMoreButton;
+/// 更多响应按钮
+@property (nonatomic, strong) UIButton *button;
+/// 更多响应回调
+@property (nonatomic, copy) void (^moreClick)(UIButton *button);
 
 @end
